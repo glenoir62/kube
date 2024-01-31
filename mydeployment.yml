@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app: nginx
     matchExpressions:
-      - { key: version, operator: In, value: ["1.25", "1.24"] }
+      - {key: app, operator: In, values: [nginx, mysql]}
   template:
     metadata:
       labels:

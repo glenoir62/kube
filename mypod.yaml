@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: ginx
   labels:
-    dyma.fr/environment: production
+    environment: production
     tiers: backend
     version: "1.25"
 spec:
