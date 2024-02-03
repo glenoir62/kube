@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-apache
+spec:
+  selector:
+    matchLabels:
+      run: php-apache
+  template:
+    metadata:
+      labels:
+        run: php-apache
+    spec:
+      containers:
+        - name: php-apache
+          image: registry.k8s.io/hpa-example
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-apache
+  labels:
+    run: php-apache
+spec:
+  ports:
+    - port: 80
+  selector:
+    run: php-apache
+  ## kubectl apply -f config.yaml
+  ## kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+  ## HorizontalPodScaler
+  ## kubectl get hpa
+## kubectl run -it --rm load-generator --image=alpine /bin/sh
+##  lancer un Pod utilisant l'image alpine (image légère Linux) en mode interactif et en supprimant le Pod lorsqu'on aura fini (--rm)
+
+## apk update && apk add --no-cache wrk
+
+## kubectl get hpa --watch
+## wrk -t4 -c1000 -d30s http://php-apache
+## php-apache   Deployment/php-apache   250%/50%   1         10        1          6m30s
+## php-apache   Deployment/php-apache   250%/50%   1         10        4          6m45s
+## php-apache   Deployment/php-apache   250%/50%   1         10        5          7m1s
+

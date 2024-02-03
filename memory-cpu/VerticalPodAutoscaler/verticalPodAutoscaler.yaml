@@ -1,0 +1,14 @@
+apiVersion: "autoscaling.k8s.io/v1"
+kind: VerticalPodAutoscaler
+metadata:
+  name: php-apache-vpa
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: php-apache
+  updatePolicy:
+    updateMode: "Auto"
+## kubectl apply -f verticalPodAutoscaler.yaml
+## kubectl get vpa
+## php-apache-vpa   Auto   25m   262144k   True       25s
