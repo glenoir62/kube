@@ -4,3 +4,5 @@ kubectl get pod -o wide
 kubectl apply -f premier-service.yaml
 
 minikube service k8c4-service
+
+![Alt text](image.png)

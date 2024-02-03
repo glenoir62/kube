@@ -1,0 +1,55 @@
+@use "assets/styles/mixins" as mixins;
+
+.container {
+  position: fixed;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+
+.wishlist {
+  width: 400px;
+  max-height: 400px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--box-shadow);
+  border: var(--border);
+  overflow-y: auto;
+  animation: appear 200ms;
+  @include mixins.xs {
+    width: 100%;
+    margin-bottom: 0;
+    margin-right: 0;
+  }
+}
+
+.remove {
+  animation: disappear 200ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes appear {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes disappear {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}

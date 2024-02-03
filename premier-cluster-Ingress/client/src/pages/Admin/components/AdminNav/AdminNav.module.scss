@@ -1,0 +1,26 @@
+@use "assets/styles/mixins" as mixins;
+
+.list {
+  background-color: white;
+  border-radius: var(--border-radius);
+  border: var(--border);
+  flex: 0 0 200px;
+  @include mixins.xs {
+    flex: 0 0 auto;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  padding: 20px;
+  a {
+    padding: 5px;
+  }
+  margin-right: 20px;
+}
+
+.active {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 500;
+  border-radius: var(--border-radius);
+  transition: color 0.2s, background-color 0.2s;
+}

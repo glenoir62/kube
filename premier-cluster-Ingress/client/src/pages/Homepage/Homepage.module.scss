@@ -1,0 +1,38 @@
+@use "assets/styles/mixins" as mixins;
+
+.grid {
+  display: grid;
+  place-content: center;
+  grid-template-columns: repeat(3, 350px);
+  grid-auto-columns: repeat(3, 350px);
+  gap: 20px;
+  @include mixins.lg-lt {
+    grid-template-columns: repeat(2, 350px);
+    grid-auto-columns: repeat(2, 350px);
+  }
+  @include mixins.md-lt {
+    grid-template-columns: 350px;
+    grid-auto-columns: 350px;
+  }
+  @include mixins.xs {
+    grid-template-columns: 1fr;
+    grid-auto-columns: 1fr;
+  }
+}
+
+.contentCard {
+  max-width: 1130px;
+  width: 100%;
+}
+
+.small {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.title {
+  @include mixins.xs {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+}
