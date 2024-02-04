@@ -1,0 +1,300 @@
+/* theme */
+:root {
+    --font-family: 'Open Sans', sans-serif;
+    --primary:#e74c3c;
+    --primary-dark:#c0392b;
+    --dark:#2c3e50;
+    --danger:#e74c3c;
+    --background-light:#ecf0f1;
+    --text-color:#444;
+    --text-color-light:#fff;
+    --box-shadow:rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    --border:1px solid #eee;
+}
+
+
+/* reset */
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    font-family: var(--font-family);
+    background-color: var(--background-light);
+}
+
+h1, p {
+    margin:0;
+}
+
+h1 {
+    margin-bottom: 1rem;
+}
+
+ul {
+    padding:0;
+    list-style-type: none;
+}
+
+a {
+    color:inherit;
+    text-decoration: none;
+}
+
+/* container */
+
+.container {
+    font-size: 1.6rem;
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+    color:var(--text-color);
+}
+
+.overflow {
+    overflow: hidden;
+}
+
+/* text */
+
+.text-danger {
+    color: var(--danger);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* button */
+
+.btn {
+    background-color: white;
+    font-weight: 700;
+    color:var(--text-color);
+    font-size: 1.6rem;
+    border:0;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius:3px;
+    margin:0 5px;
+    box-shadow: var(--box-shadow);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color:var(--text-color-light);
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color:var(--text-color-light);
+}
+
+.btn-small {
+    padding:5px 10px;
+    font-size: 1.4rem;
+}
+
+
+.low-opacity {
+    opacity: 0.5;
+}
+
+.small {
+    font-size: 1.2rem;
+    margin: 0 0.5rem;
+}
+
+/* header */
+
+header {
+    background-color: var(--primary);
+    padding:1.5rem;
+    box-shadow: var(--box-shadow);
+    color:var(--text-color-light);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.header-menu {
+    margin:0;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.header-menu li {
+    margin-left:1rem;
+    border-radius: 3px;
+    padding: 5px 15px;
+    transition: background-color 0.2s;
+}
+
+.header-mobile {
+    display: none;
+}
+
+.header-mobile-list {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    color: var(--text-color);
+    background:var(--background-light);
+}
+
+.show {
+    display: block;
+}
+
+.header-mobile-list li {
+    padding:1rem;
+}
+
+.header-mobile-list li.active {
+    color: white;
+    font-weight: 700;
+}
+
+
+
+
+.header-menu li:hover {
+    background-color: var(--primary-dark);
+}
+
+.active {
+    background-color: var(--primary-dark);
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 2rem;
+    color:var(--text-color-light);
+}
+
+li.header-profile  {
+    font-weight: 700;
+    background-color: var(--dark);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+}
+
+li.header-profile:hover {
+    background-color: var(--dark);
+}
+
+
+
+/* footer */
+
+footer {
+    background: var(--dark);
+    display: flex;
+    flex-flow: row-reverse;
+    color:var(--text-color-light);
+    padding:1.5rem;
+}
+
+/* content  */
+
+.content {
+    max-width: 100rem;
+    width: 100%;
+    flex:1;
+    display: flex;
+    flex-flow: column;
+    align-self: center;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+/* form */
+
+.form-container {
+    display: flex;
+    flex-flow: column;
+    width: 60rem;
+}
+
+.form-container h1 {
+    margin-bottom:2rem;
+}
+
+.form-control {
+    display: flex;
+    flex-flow: column;
+    margin: 1rem 0;
+}
+
+.form-control label {
+    margin-bottom: 1rem;
+}
+
+.form-control input {
+    border: var(--border);
+    border-radius: 3px;
+    padding: 1rem 1.5rem;
+}
+
+.form-control select {
+    border: var(--border);
+    padding: 1rem 1.5rem;
+}
+
+.form-control textarea {
+    border: var(--border);
+    padding: 1rem 1.5rem;
+    min-height: 20rem;
+}
+
+.form-actions {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
+/* block */
+
+.block {
+    border-radius: 3px;
+    border: var(--border);
+    background-color: white;
+    box-shadow: var(--box-shadow);
+}
+
+/* utils */
+
+.p-20 {
+    padding:20px;
+}
+
+.p-10 {
+    padding:10px;
+}
+
+@media only screen and (max-width: 800px) {
+    .header-menu {
+        display: none;
+    }
+
+    .header-mobile {
+        display: block;
+    }
+    .form-container {
+        width: 100%;
+    }
+    .content  {
+        padding:1rem;
+    }
+}

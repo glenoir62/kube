@@ -4,10 +4,10 @@ metadata:
   name: mon-pod
 spec:
   containers:
-  - name: mon-conteneur
-    image: mon-image
-    resources:
-      requests:
-        memory: "64Mi"
-      limits:
-        memory: "128Mi"
+    - name: mon-conteneur
+      image: mon-image
+      resources:
+        requests:
+          memory: "64Mi"
+        limits:
+          memory: "128Mi"

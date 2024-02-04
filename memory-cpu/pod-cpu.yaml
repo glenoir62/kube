@@ -14,3 +14,4 @@ spec:
       args:
         - -cpus
         - "2"
+## kubectl top pod demo-cpu
