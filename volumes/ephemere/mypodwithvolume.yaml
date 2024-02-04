@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-test
+spec:
+  containers:
+    - name: nginx
+      image: nginx:alpine
+      volumeMounts:
+        - name: my-volume
+          mountPath: /mydata
+    - name: alpine
+      image: alpine
+      command: ["sleep", "infinity"]
+      volumeMounts:
+        - name: my-volume
+          mountPath: /hello
+  volumes:
+    - name: my-volume
+      emptyDir:
+        sizeLimit: "10Mi"
+## kubectl exec -it nginx-test -- sh
+## ls
+## cd /mydata
+## touch test.yaml
+
+## docker exec -it 87ee0fa7e3b6 sh
+## cd /var/lib/kubelet/pods
+## cd 5c00344e-f570-4a59-9145-884b9864bdfa
+## cd kubernetes.io~empty-dir
+## ls
+## see test.yaml
+
+## kubectl get pod nginx-test -o yaml
+## 5c00344e-f570-4a59-9145-884b9864bdfa
+
+## kubectl exec -it nginx-test -c alpine -- sh
+## kubectl exec -it nginx-test -c nginx -- sh

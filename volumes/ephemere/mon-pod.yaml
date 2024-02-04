@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mon-pod
+spec:
+  volumes:
+    - name: volume-partage
+      emptyDir: {}
+  containers:
+    - name: conteneur-1
+      image: nginx
+      volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: volume-partage
+    - name: conteneur-2
+      image: alpine
+      volumeMounts:
+        - mountPath: /volume
+          name: volume-partage
+      command: ["/bin/sh"]
+      args: ["-c", "echo Bonjour tout le monde > /volume/index.html"]
+## kubectl apply -f mon-pod.yaml
+## kubectl exec mon-pod -c conteneur-1 -- cat /usr/share/nginx/html/index.html
