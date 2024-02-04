@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-configmap
+data:
+  ma_cle: ma super valeur !
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-commande
+spec:
+  containers:
+    - name: demo-commande-conteneur
+      image: busybox
+      command: ["echo"]
+      args: ["$(NOM_VAR)"]
+      env:
+        - name: NOM_VAR
+          valueFrom:
+            configMapKeyRef:
+              name: test-configmap
+              key: ma_cle
+## demo-commande
+## kubectl logs pods/demo-commande :)
