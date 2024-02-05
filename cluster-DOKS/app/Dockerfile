@@ -4,3 +4,5 @@ WORKDIR /app
 COPY . .
 CMD ["php-fpm"]
 EXPOSE 9000
+
+## docker build -t gleo50/projet3-php-fpm .

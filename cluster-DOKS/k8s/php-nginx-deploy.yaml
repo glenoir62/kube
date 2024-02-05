@@ -22,7 +22,7 @@ spec:
     spec:
       initContainers:
         - name: init-mysql
-          image: dymafr/projet3-php-fpm
+          image: gleo50/projet3-php-fpm
           command:
             - "sh"
             - "-c"
@@ -37,11 +37,11 @@ spec:
               echo "seed script executed";
       containers:
         - name: php-fpm
-          image: dymafr/projet3-php-fpm
+          image: gleo50/projet3-php-fpm
           ports:
             - containerPort: 9000
         - name: nginx
-          image: dymafr/projet3-nginx
+          image: gleo50/projet3-nginx
           ports:
             - containerPort: 80
 ## initContainers take a look, for bdd configuration
