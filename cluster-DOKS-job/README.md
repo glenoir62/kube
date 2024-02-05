@@ -18,7 +18,7 @@ minikube service php-nginx-service --url
 
 kubectl delete pods --all
 
-kubectl create secret docker-registry docker-hub-secret --docker-server=https://registry-1.docker.io/v2/ --docker-username=gleo59 --docker-password=XXX --docker-email=guillaume.lenoir@gleo.fr
+kubectl create secret docker-registry docker-hub-secret --docker-server=https://registry-1.docker.io/v2/ --docker-username=gleo59 --docker-password=xxxx --docker-email=guillaume.lenoir@gleo.fr
 
 kubectl get secret docker-hub-secret --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
 

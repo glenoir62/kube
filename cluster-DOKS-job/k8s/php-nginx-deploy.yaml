@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-nginx-deployment
+  labels:
+    app.kubernetes.io/name: php-nginx
+    app.kubernetes.io/component: server
+    app.kubernetes.io/part-of: php-blog
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: php-nginx
+      app.kubernetes.io/component: server
+      app.kubernetes.io/part-of: php-blog
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: php-nginx
+        app.kubernetes.io/component: server
+        app.kubernetes.io/part-of: php-blog
+    spec:
+      volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config
+      initContainers:
+        - name: init-mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-config
+                  key: db_url
+          image: gleo50/projet4-php-fpm
+          command:
+            - "sh"
+            - "-c"
+            - |
+              until nc -z mysql-service 3306;
+              do
+                echo "waiting for mysql";
+                sleep 2;
+              done;
+              echo "mysql is ready";
+              php /app/data/migration.php
+              echo "seed script executed";
+      containers:
+        - name: php-fpm
+          image: gleo50/projet4-php-fpm
+          ports:
+            - containerPort: 9000
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-config
+                  key: db_url
+        - name: nginx
+          image: gleo50/projet4-nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: nginx.conf
+## initContainers take a look, for bdd configuration
+## kubectl apply -f php-nginx-deploy.yaml
+## kubectl get pods
+## Notez bien le -c qui permet de spécifier le conteneur du Pod dont nous souhaitons les logs. Ici nous avons trois conteneurs dans le Pod : init-mysql, php-fpm et nginxNotez bien le -c qu
+## permet de spécifier le conteneur du Pod dont nous souhaitons les logs.
+## Ici nous avons trois conteneurs dans le Pod : init-mysql, php-fpm et nginx
+## kubectl logs php-nginx-deployment-67cf94bd98-wr9cb -c init-mysql
+
+## mysql is ready
+## seed script executed
+
+## kubectl exec -it php-nginx-deployment-5b99586db6-q5tqm -c nginx -- sh
+## verify config with nginx -T
+
+## kubectl exec -it php-nginx-deployment-5b99586db6-q5tqm -c php-fpm -- bash
+
+## kubectl create secret docker-registry docker-hub-secret --docker-server=https://index.docker.io/v1/ --docker-username=dymafr --docker-password=dckr_pat_Dg0Vp_QQBE2DFGBbGdfA2j9ss6U --docker-email=contact@dyma.fr
+
+## kubectl get secret docker-hub-secret --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
