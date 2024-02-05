@@ -1,0 +1,37 @@
+.content {
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.info-container ul li {
+    display: flex;
+}
+
+.info-container ul li strong {
+    margin-right: 5px;
+}
+
+.articles-list {
+    width: 100%;
+}
+
+.articles-list ul li {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    padding:15px;
+    border-radius: 3px;
+    background-color:white;
+    border:var(--border);
+    margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 800px) {
+    .articles-list ul li {
+        flex-flow: column;
+    }
+
+    .article-actions {
+        margin-top: 1rem;
+    }
+}

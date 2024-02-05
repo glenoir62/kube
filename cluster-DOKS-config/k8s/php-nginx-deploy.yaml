@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-nginx-deployment
+  labels:
+    app.kubernetes.io/name: php-nginx
+    app.kubernetes.io/component: server
+    app.kubernetes.io/part-of: php-blog
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: php-nginx
+      app.kubernetes.io/component: server
+      app.kubernetes.io/part-of: php-blog
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: php-nginx
+        app.kubernetes.io/component: server
+        app.kubernetes.io/part-of: php-blog
+    spec:
+      initContainers:
+        - name: init-mysql
+          image: gleo50/projet3-php-fpm
+          command:
+            - "sh"
+            - "-c"
+            - |
+              until nc -z mysql-service 3306; 
+              do 
+                echo "waiting for mysql"; 
+                sleep 2; 
+              done;
+              echo "mysql is ready";
+              php /app/data/migration.php
+              echo "seed script executed";
+      containers:
+        - name: php-fpm
+          image: gleo50/projet3-php-fpm
+          ports:
+            - containerPort: 9000
+        - name: nginx
+          image: gleo50/projet3-nginx
+          ports:
+            - containerPort: 80
+## initContainers take a look, for bdd configuration
+## kubectl apply -f php-nginx-deploy.yaml
+## kubectl get pods
+## Notez bien le -c qui permet de spécifier le conteneur du Pod dont nous souhaitons les logs. Ici nous avons trois conteneurs dans le Pod : init-mysql, php-fpm et nginxNotez bien le -c qu
+## permet de spécifier le conteneur du Pod dont nous souhaitons les logs.
+## Ici nous avons trois conteneurs dans le Pod : init-mysql, php-fpm et nginx
+## kubectl logs php-nginx-deployment-67cf94bd98-wr9cb -c init-mysql
+
+## mysql is ready
+## seed script executed
+
+## kubectl exec -it php-nginx-deployment-5b99586db6-q5tqm -c nginx -- sh
+## verify config with nginx -T
+
+## kubectl exec -it php-nginx-deployment-5b99586db6-q5tqm -c php-fpm -- bash

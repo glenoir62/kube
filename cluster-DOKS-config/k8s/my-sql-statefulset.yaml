@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-statefulset
+  labels:
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/component: database
+    app.kubernetes.io/part-of: php-blog
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mysql
+      app.kubernetes.io/component: database
+      app.kubernetes.io/part-of: php-blog
+  serviceName: mysql-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mysql
+        app.kubernetes.io/component: database
+        app.kubernetes.io/part-of: php-blog
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mysql-container
+          image: mysql:8
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: Pomme123;
+            - name: MYSQL_DATABASE
+              value: "blog"
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-volume
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-volume
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+# kubectl apply -f my-sql-statefulset.yaml
+# kubectl get all
+# kubectl get pvc
+# kubectl get pv
