@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: parallel-fixed-completion-job
+spec:
+  completions: 5
+  parallelism: 5
+  template:
+    spec:
+      containers:
+        - name: my-container
+          image: my-image
+          command: ["process-data", "--part=$(POD_NAME)"]
+      restartPolicy: Never

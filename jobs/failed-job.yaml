@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-pod-failure-policy-exemple
+spec:
+  completions: 12
+  parallelism: 3
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: main
+          image: docker.io/library/alpine:latest
+          command: ["sh"]
+          args:
+            - -c
+            - echo "Bonjour le monde !" && sleep 5 && exit 42 # Simule un bug au bout de 5 secondes qui déclenche l'action FailJob
+  backoffLimit: 6
+  podFailurePolicy:
+    rules:
+      - action: FailJob
+        onExitCodes:
+          containerName: main # optionnel
+          operator: In # In, NotIn
+          values: [42]
+      - action: Ignore # Ignore, FailJob, Count
+        onPodConditions:
+          - type: DisruptionTarget # indique la perturbation du Pod
