@@ -25,7 +25,7 @@ spec:
           image: dymafr/projet5-node
           ports:
             - containerPort: 80
-          env: 
+          env:
             - name: JWT_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
@@ -64,5 +64,3 @@ spec:
               port: 80
             initialDelaySeconds: 5
             periodSeconds: 10
-      imagePullSecrets:
-        - name: docker-hub-secret

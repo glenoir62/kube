@@ -2,7 +2,8 @@
 
 $dns = 'mysql:host=mysql-service;dbname=blog;charset=utf8';
 $user = 'root';
-$pwd = 'Pomme123;';
+$pwd = getenv('MYSQL_ROOT_PASSWORD');
+
 
 try {
     $pdo = new PDO($dns, $user, $pwd, [

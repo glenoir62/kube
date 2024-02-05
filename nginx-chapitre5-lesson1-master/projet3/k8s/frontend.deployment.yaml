@@ -32,5 +32,3 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
-      imagePullSecrets:
-        - name: docker-hub-secret

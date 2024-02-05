@@ -5,4 +5,4 @@ COPY . .
 CMD ["php-fpm"]
 EXPOSE 9000
 
-## docker build -t gleo50/projet3-php-fpm .
+## docker build -t gleo50/projet4-php-fpm .
