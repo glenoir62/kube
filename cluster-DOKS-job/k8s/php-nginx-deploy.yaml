@@ -24,32 +24,6 @@ spec:
         - name: nginx-config-volume
           configMap:
             name: nginx-config
-      initContainers:
-        - name: init-mysql
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: MYSQL_ROOT_PASSWORD
-            - name: DB_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: nginx-config
-                  key: db_url
-          image: gleo50/projet4-php-fpm
-          command:
-            - "sh"
-            - "-c"
-            - |
-              until nc -z mysql-service 3306;
-              do
-                echo "waiting for mysql";
-                sleep 2;
-              done;
-              echo "mysql is ready";
-              php /app/data/migration.php
-              echo "seed script executed";
       containers:
         - name: php-fpm
           image: gleo50/projet4-php-fpm
