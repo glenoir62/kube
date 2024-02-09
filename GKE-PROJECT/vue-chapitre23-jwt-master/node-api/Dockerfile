@@ -7,5 +7,7 @@ ENV PORT=80
 EXPOSE 80
 CMD [ "node", "index.js" ]
 
-## docker build -t gleo50/projet5-node .
+## docker buildx create --use --platform=linux/arm64,linux/amd64 --name multi-platform-builder
+## docker buildx inspect --bootstrap
+## docker build -t gleo50/projet5-node . --platform=linux/amd64,linux/arm64
 ## docker push gleo50/projet5-node

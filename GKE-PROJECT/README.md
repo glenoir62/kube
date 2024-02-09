@@ -99,3 +99,17 @@ go to compass
 kubectl logs pod/mongodb-0 -f
 
 ![Alt text](image-3.png)
+
+bash generate_secrets.sh
+
+kubectl apply -f k8s/
+kubectl get pod -w
+NAME READY STATUS RESTARTS AGE
+api-deployment-7b7476474f-72clt 0/1 ContainerCreating 0 5s
+frontend-deployment-856c7fb959-l2w67 0/1 ContainerCreating 0 4s
+...
+
+exec /usr/local/bin/docker-entrypoint.sh: exec format error  
+arm64 issue ?
+
+kubectl logs api-deployment-7b7476474f-72clt
