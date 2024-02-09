@@ -109,7 +109,8 @@ api-deployment-7b7476474f-72clt 0/1 ContainerCreating 0 5s
 frontend-deployment-856c7fb959-l2w67 0/1 ContainerCreating 0 4s
 ...
 
-exec /usr/local/bin/docker-entrypoint.sh: exec format error  
+exec /usr/local/bin/docker-entrypoint.sh: exec format error
 arm64 issue ?
 
 kubectl logs api-deployment-7b7476474f-72clt
+
