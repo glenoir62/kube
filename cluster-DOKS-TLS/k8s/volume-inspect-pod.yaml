@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-inspect-pod
+spec:
+  containers:
+    - name: inspect-container
+      image: busybox
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: inspect-volume
+          mountPath: /inspect
+  volumes:
+    - name: inspect-volume
+      persistentVolumeClaim:
+        claimName: backup-pvc
+        ##kubectl exec -it volume-inspect-pod -- /bin/sh
+    ## cd inspect
+##cat backup.sql

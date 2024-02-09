@@ -35,3 +35,6 @@ backend:
 ## go http://localhost:3000
 ## got to http://loki-gateway.loki.svc.cluster.local
 ## helm install prometheus prometheus-community/prometheus -n loki
+
+
+alert manager 

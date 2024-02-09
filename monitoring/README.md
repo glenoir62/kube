@@ -4,6 +4,7 @@
 ![Alt text](image-3.png)
 ![Alt text](image-4.png)
 
+kubectl create ns loki
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm search repo grafana
@@ -24,3 +25,5 @@ helm list -n loki
 helm delete grafana -n loki
 kubectl get all -n loki
 kubectl delete all --all -n loki --force
+
+alert manager -> prometeus

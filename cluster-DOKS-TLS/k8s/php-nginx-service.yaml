@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-nginx-service
+  labels:
+    app.kubernetes.io/name: php-nginx
+    app.kubernetes.io/component: server
+    app.kubernetes.io/part-of: php-blog
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app.kubernetes.io/name: php-nginx
+    app.kubernetes.io/component: server
+    app.kubernetes.io/part-of: php-blog
+## kubectl apply -f php-nginx-service.yaml
+## kubectl get svc
+## get EXTERNAL-IP for cloud provider or
+## minikube service php-nginx-service --url
